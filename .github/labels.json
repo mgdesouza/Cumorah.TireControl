@@ -1,0 +1,124 @@
+{
+  "labels": [
+    {
+      "name": "Type: Epic",
+      "color": "3E1414",
+      "description": "Grande iniciativa que compreende múltiplas features"
+    },
+    {
+      "name": "Type: Feature",
+      "color": "0366D6",
+      "description": "Nova funcionalidade a ser implementada"
+    },
+    {
+      "name": "Type: Bug",
+      "color": "D73A49",
+      "description": "Problema ou defeito identificado"
+    },
+    {
+      "name": "Type: Task",
+      "color": "A2EEEF",
+      "description": "Tarefa de suporte ou manutenção"
+    },
+    {
+      "name": "Type: SubTask",
+      "color": "7057FF",
+      "description": "Subtarefa de uma issue maior"
+    },
+    {
+      "name": "Phase: Analysis",
+      "color": "FBCA04",
+      "description": "Fase de análise e planejamento"
+    },
+    {
+      "name": "Phase: Development",
+      "color": "0075CA",
+      "description": "Fase de desenvolvimento"
+    },
+    {
+      "name": "Phase: Testing",
+      "color": "E99695",
+      "description": "Fase de testes e qualidade"
+    },
+    {
+      "name": "Phase: Deploy",
+      "color": "34A853",
+      "description": "Fase de implantação em produção"
+    },
+    {
+      "name": "Priority: Critical",
+      "color": "B60205",
+      "description": "Bloqueador - deve ser resolvido imediatamente"
+    },
+    {
+      "name": "Priority: High",
+      "color": "D93F0B",
+      "description": "Alta prioridade"
+    },
+    {
+      "name": "Priority: Medium",
+      "color": "FBCA04",
+      "description": "Prioridade média"
+    },
+    {
+      "name": "Priority: Low",
+      "color": "0E8A16",
+      "description": "Baixa prioridade"
+    },
+    {
+      "name": "Status: Backlog",
+      "color": "CFD3D7",
+      "description": "Aguardando início"
+    },
+    {
+      "name": "Status: In Progress",
+      "color": "0366D6",
+      "description": "Atualmente em desenvolvimento"
+    },
+    {
+      "name": "Status: Review",
+      "color": "1D76DB",
+      "description": "Aguardando revisão"
+    },
+    {
+      "name": "Status: Blocked",
+      "color": "B60205",
+      "description": "Bloqueada por outra issue"
+    },
+    {
+      "name": "Status: Done",
+      "color": "28A745",
+      "description": "Concluído e validado"
+    },
+    {
+      "name": "Area: Backend",
+      "color": "1D76DB",
+      "description": "Relacionado ao backend/API"
+    },
+    {
+      "name": "Area: Frontend",
+      "color": "C2E0C6",
+      "description": "Relacionado ao frontend/UI"
+    },
+    {
+      "name": "Area: Database",
+      "color": "D4C5F9",
+      "description": "Relacionado a banco de dados"
+    },
+    {
+      "name": "Area: Infrastructure",
+      "color": "FCE1A9",
+      "description": "Relacionado a infraestrutura e deploy"
+    },
+    {
+      "name": "Area: Documentation",
+      "color": "E6F7F5",
+      "description": "Relacionado a documentação"
+    },
+    {
+      "name": "Area: Security",
+      "color": "4C3E37",
+      "description": "Relacionado a segurança"
+    }
+  ]
+}
