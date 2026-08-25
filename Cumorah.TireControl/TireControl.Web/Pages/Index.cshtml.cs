@@ -1,0 +1,11 @@
+@page
+@model IndexModel
+
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Bem-vindo ao TireControl</h1>
+    <p>Sistema de Gestão de Pneus.</p>
+</div>
