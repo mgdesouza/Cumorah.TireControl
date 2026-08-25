@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.Maui">
+    <PropertyGroup>
+        <TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
+        <TargetFrameworks Condition="$([msbuild]::GetTargetPlatformIdentifier('$(TargetFrameworks)')) == 'windows'">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
+        <OutputType>Exe</OutputType>
+        <UseMaui>true</UseMaui>
+        <SingleProject>true</SingleProject>
+
+        <!-- Display name -->
+        <ApplicationTitle>TireControl.Mobile</ApplicationTitle>
+
+        <!-- App Identifier -->
+        <ApplicationId>com.companyname.tirecontrol.mobile</ApplicationId>
+        <ApplicationIdGuid>12345678-1234-1234-1234-123456789012</ApplicationIdGuid>
+
+        <!-- Versions -->
+        <ApplicationDisplayVersion>1</ApplicationDisplayVersion>
+        <ApplicationVersion>1</ApplicationVersion>
+
+        <!-- Required for C# Hot Reload -->
+        <UseHotReload>true</UseHotReload>
+
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFrameworks)')) == 'ios'">14.2</SupportedOSPlatformVersion>
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFrameworks)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFrameworks)')) == 'android'">21.0</SupportedOSPlatformVersion>
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFrameworks)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+        <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFrameworks)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <!-- .NET MAUI -->
+        <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.0" />
+        <PackageReference Include="Microsoft.Maui.Controls.Hosting" Version="8.0.0" />
+    </ItemGroup>
+
+</Project>
