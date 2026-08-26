@@ -1,9 +1,10 @@
-namespace TireControl.Mobile;
-
-public partial class AppShell : Shell
+﻿namespace TireControl.Mobile
 {
-    public AppShell()
+    public partial class AppShell : Shell
     {
-        InitializeComponent();
+        public AppShell()
+        {
+            InitializeComponent();
+        }
     }
 }
