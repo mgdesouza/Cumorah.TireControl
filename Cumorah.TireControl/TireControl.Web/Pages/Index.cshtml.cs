@@ -1,11 +1,12 @@
-@page
-@model IndexModel
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
-@{
-    ViewData["Title"] = "Home page";
+namespace TireControl.Web
+{
+    public class IndexModel : PageModel
+    {
+        public void OnGet()
+        {
+        }
+    }
 }
-
-<div class="text-center">
-    <h1 class="display-4">Bem-vindo ao TireControl</h1>
-    <p>Sistema de Gestão de Pneus.</p>
-</div>
