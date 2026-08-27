@@ -1,0 +1,6 @@
+@TireControl.Api_HostAddress = http://localhost:5208
+
+GET {{TireControl.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -4,8 +4,6 @@ VisualStudioVersion = 18.8.12023.21
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TireControl.Domain", "TireControl.Domain\TireControl.Domain.csproj", "{A7C8D498-673B-42B3-AE4A-729A6EB2B9C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TireControl.Api", "TireControl.Api\TireControl.Api.csproj", "{72BCC610-E941-0BC6-58E5-BB30B5450B96}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TireControl.Application", "TireControl.Application\TireControl.Application.csproj", "{4DC96832-0EE5-11D6-0981-F9375EA02001}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TireControl.Infrastructure", "TireControl.Infrastructure\TireControl.Infrastructure.csproj", "{687B2845-AEC6-2649-FF62-9A778CB38D59}"
@@ -15,6 +13,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TireControl.Web", "TireControl.Web\TireControl.Web.csproj", "{F364F600-690A-9920-ABC7-0289AC2E7417}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TireControl.Mobile", "TireControl.Mobile\TireControl.Mobile.csproj", "{E1D0F4A5-FCD4-48B7-8903-8A60B1E496CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TireControl.Api", "TireControl.Api\TireControl.Api.csproj", "{167A8EA6-56F4-4BF1-B548-0F4073B2D57A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,10 +26,6 @@ Global
 		{A7C8D498-673B-42B3-AE4A-729A6EB2B9C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7C8D498-673B-42B3-AE4A-729A6EB2B9C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7C8D498-673B-42B3-AE4A-729A6EB2B9C1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{72BCC610-E941-0BC6-58E5-BB30B5450B96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{72BCC610-E941-0BC6-58E5-BB30B5450B96}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{72BCC610-E941-0BC6-58E5-BB30B5450B96}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{72BCC610-E941-0BC6-58E5-BB30B5450B96}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4DC96832-0EE5-11D6-0981-F9375EA02001}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4DC96832-0EE5-11D6-0981-F9375EA02001}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DC96832-0EE5-11D6-0981-F9375EA02001}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -50,6 +46,10 @@ Global
 		{E1D0F4A5-FCD4-48B7-8903-8A60B1E496CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1D0F4A5-FCD4-48B7-8903-8A60B1E496CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1D0F4A5-FCD4-48B7-8903-8A60B1E496CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{167A8EA6-56F4-4BF1-B548-0F4073B2D57A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{167A8EA6-56F4-4BF1-B548-0F4073B2D57A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{167A8EA6-56F4-4BF1-B548-0F4073B2D57A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{167A8EA6-56F4-4BF1-B548-0F4073B2D57A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
