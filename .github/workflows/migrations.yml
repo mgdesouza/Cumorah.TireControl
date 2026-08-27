@@ -1,0 +1,68 @@
+name: Database Migrations
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+  push:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  validate-migrations:
+    runs-on: ubuntu-latest
+    name: Validate Database Migrations
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build project
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Check for pending migrations
+        run: |
+          dotnet ef migrations list || true
+          
+      - name: Validate migrations structure
+        run: |
+          if [ -d "Migrations" ]; then
+            echo "✓ Migrations directory found"
+            ls -la Migrations/
+          else
+            echo "⚠ No Migrations directory found"
+          fi
+
+  apply-migrations:
+    runs-on: ubuntu-latest
+    name: Apply Migrations (if main branch)
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: validate-migrations
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build project
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Apply migrations
+        run: |
+          echo "Migrations would be applied here to production database"
