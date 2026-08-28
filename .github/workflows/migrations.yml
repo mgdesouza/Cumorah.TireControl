@@ -2,67 +2,198 @@ name: Database Migrations
 
 on:
   pull_request:
-    branches: [ main, develop ]
+    branches:
+      - main
+      - develop
+
   push:
-    branches: [ main, develop ]
+    branches:
+      - main
+      - develop
+
   workflow_dispatch:
 
 jobs:
+
+  # ============================================================
+  # VALIDAÇÃO DAS MIGRATIONS
+  # Executado em Pull Requests e Push para main/develop
+  # ============================================================
   validate-migrations:
-    runs-on: ubuntu-latest
+
     name: Validate Database Migrations
-    
+    runs-on: ubuntu-latest
+
     steps:
+
+      # --------------------------------------------------------
+      # Checkout do código
+      # --------------------------------------------------------
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
+      # --------------------------------------------------------
+      # Instala .NET 10
+      # --------------------------------------------------------
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: "10.0.x"
 
+      # --------------------------------------------------------
+      # Exibe informações do ambiente
+      # --------------------------------------------------------
+      - name: Display .NET information
+        run: |
+          dotnet --info
+          dotnet --version
+
+      # --------------------------------------------------------
+      # Restore dos pacotes NuGet
+      # --------------------------------------------------------
       - name: Restore dependencies
         run: dotnet restore
 
-      - name: Build project
+      # --------------------------------------------------------
+      # Build da solução
+      # --------------------------------------------------------
+      - name: Build solution
         run: dotnet build --configuration Release --no-restore
 
-      - name: Check for pending migrations
+      # --------------------------------------------------------
+      # Instala EF Core Tools
+      # --------------------------------------------------------
+      - name: Install EF Core Tools
         run: |
-          dotnet ef migrations list || true
-          
-      - name: Validate migrations structure
+          dotnet tool install --global dotnet-ef
+
+      # --------------------------------------------------------
+      # Adiciona ferramentas globais ao PATH
+      # --------------------------------------------------------
+      - name: Add EF Tools to PATH
         run: |
-          if [ -d "Migrations" ]; then
+          echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+
+      # --------------------------------------------------------
+      # Exibe a versão do EF Core
+      # --------------------------------------------------------
+      - name: Check EF Core version
+        run: |
+          dotnet ef --version
+
+      # --------------------------------------------------------
+      # Lista as migrations existentes
+      # --------------------------------------------------------
+      - name: Validate EF Core migrations
+        run: |
+          dotnet ef migrations list \
+            --project TireControl.Infrastructure \
+            --startup-project TireControl.Api \
+            --configuration Release \
+            --no-build
+
+      # --------------------------------------------------------
+      # Verifica se a pasta Migrations existe
+      # --------------------------------------------------------
+      - name: Validate migrations directory
+        run: |
+          if [ -d "TireControl.Infrastructure/Migrations" ]; then
             echo "✓ Migrations directory found"
-            ls -la Migrations/
+            ls -la TireControl.Infrastructure/Migrations/
           else
-            echo "⚠ No Migrations directory found"
+            echo "⚠ No migrations directory found yet"
+            echo "This is normal before the first migration is created."
           fi
 
+
+  # ============================================================
+  # APLICA AS MIGRATIONS NO BANCO
+  # Executado somente após PUSH na branch main
+  # ============================================================
   apply-migrations:
+
+    name: Apply Database Migrations
     runs-on: ubuntu-latest
-    name: Apply Migrations (if main branch)
+
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
     needs: validate-migrations
-    
+
     steps:
+
+      # --------------------------------------------------------
+      # Checkout do código
+      # --------------------------------------------------------
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # --------------------------------------------------------
+      # Instala .NET 10
+      # --------------------------------------------------------
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: "10.0.x"
 
+      # --------------------------------------------------------
+      # Exibe versão do .NET
+      # --------------------------------------------------------
+      - name: Display .NET version
+        run: dotnet --version
+
+      # --------------------------------------------------------
+      # Restore dos pacotes
+      # --------------------------------------------------------
       - name: Restore dependencies
         run: dotnet restore
 
-      - name: Build project
+      # --------------------------------------------------------
+      # Build da solução
+      # --------------------------------------------------------
+      - name: Build solution
         run: dotnet build --configuration Release --no-restore
 
-      - name: Apply migrations
+      # --------------------------------------------------------
+      # Instala EF Core Tools
+      # --------------------------------------------------------
+      - name: Install EF Core Tools
         run: |
-          echo "Migrations would be applied here to production database"
+          dotnet tool install --global dotnet-ef
+
+      # --------------------------------------------------------
+      # Adiciona EF Tools ao PATH
+      # --------------------------------------------------------
+      - name: Add EF Tools to PATH
+        run: |
+          echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+
+      # --------------------------------------------------------
+      # Confirma instalação
+      # --------------------------------------------------------
+      - name: Check EF Core version
+        run: |
+          dotnet ef --version
+
+      # --------------------------------------------------------
+      # Lista migrations antes da atualização
+      # --------------------------------------------------------
+      - name: List migrations
+        run: |
+          dotnet ef migrations list \
+            --project TireControl.Infrastructure \
+            --startup-project TireControl.Api \
+            --configuration Release \
+            --no-build
+
+      # --------------------------------------------------------
+      # EXECUTA AS MIGRATIONS
+      # --------------------------------------------------------
+      - name: Apply database migrations
+        run: |
+          dotnet ef database update \
+            --project TireControl.Infrastructure \
+            --startup-project TireControl.Api \
+            --configuration Release \
+            --no-build
