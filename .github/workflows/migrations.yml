@@ -1,5 +1,4 @@
 name: Database Migrations
-
 on:
   pull_request:
     branches:
@@ -15,10 +14,6 @@ on:
 
 jobs:
 
-  # ============================================================
-  # VALIDAÇÃO DAS MIGRATIONS
-  # Executado em Pull Requests e Push para main/develop
-  # ============================================================
   validate-migrations:
 
     name: Validate Database Migrations
@@ -26,66 +21,96 @@ jobs:
 
     steps:
 
-      # --------------------------------------------------------
-      # Checkout do código
-      # --------------------------------------------------------
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # --------------------------------------------------------
-      # Instala .NET 10
-      # --------------------------------------------------------
+      # ========================================================
+      # DIAGNÓSTICO DA ESTRUTURA DO REPOSITÓRIO
+      # ========================================================
+      - name: Show repository structure
+        run: |
+          echo "Current directory:"
+          pwd
+
+          echo ""
+          echo "Repository files:"
+          ls -la
+
+          echo ""
+          echo "Solution files:"
+          find . -name "*.sln"
+
+          echo ""
+          echo "Project files:"
+          find . -name "*.csproj"
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: "10.0.x"
 
-      # --------------------------------------------------------
-      # Exibe informações do ambiente
-      # --------------------------------------------------------
-      - name: Display .NET information
+      # ========================================================
+      # LOCALIZA AUTOMATICAMENTE A SOLUÇÃO
+      # ========================================================
+      - name: Find solution
+        id: solution
+        shell: bash
         run: |
-          dotnet --info
-          dotnet --version
+          SOLUTION=$(find . -maxdepth 4 -name "*.sln" | head -n 1)
 
-      # --------------------------------------------------------
-      # Restore dos pacotes NuGet
-      # --------------------------------------------------------
+          echo "Solution found: $SOLUTION"
+
+          if [ -z "$SOLUTION" ]; then
+            echo "ERROR: No solution file found."
+            exit 1
+          fi
+
+          echo "path=$SOLUTION" >> $GITHUB_OUTPUT
+
+      # ========================================================
+      # RESTORE
+      # ========================================================
       - name: Restore dependencies
-        run: dotnet restore
+        run: |
+          dotnet restore "${{ steps.solution.outputs.path }}"
 
-      # --------------------------------------------------------
-      # Build da solução
-      # --------------------------------------------------------
+      # ========================================================
+      # BUILD
+      # ========================================================
       - name: Build solution
-        run: dotnet build --configuration Release --no-restore
+        run: |
+          dotnet build "${{ steps.solution.outputs.path }}" \
+            --configuration Release \
+            --no-restore
 
-      # --------------------------------------------------------
-      # Instala EF Core Tools
-      # --------------------------------------------------------
+      # ========================================================
+      # EF CORE TOOLS
+      # ========================================================
       - name: Install EF Core Tools
         run: |
           dotnet tool install --global dotnet-ef
 
-      # --------------------------------------------------------
-      # Adiciona ferramentas globais ao PATH
-      # --------------------------------------------------------
       - name: Add EF Tools to PATH
         run: |
           echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
 
-      # --------------------------------------------------------
-      # Exibe a versão do EF Core
-      # --------------------------------------------------------
       - name: Check EF Core version
         run: |
           dotnet ef --version
 
-      # --------------------------------------------------------
-      # Lista as migrations existentes
-      # --------------------------------------------------------
+      # ========================================================
+      # LOCALIZA OS PROJETOS
+      # ========================================================
+      - name: Show projects
+        run: |
+          echo "All projects:"
+          find . -name "*.csproj"
+
+      # ========================================================
+      # VALIDA MIGRATIONS
+      # ========================================================
       - name: Validate EF Core migrations
         run: |
           dotnet ef migrations list \
@@ -94,23 +119,10 @@ jobs:
             --configuration Release \
             --no-build
 
-      # --------------------------------------------------------
-      # Verifica se a pasta Migrations existe
-      # --------------------------------------------------------
-      - name: Validate migrations directory
-        run: |
-          if [ -d "TireControl.Infrastructure/Migrations" ]; then
-            echo "✓ Migrations directory found"
-            ls -la TireControl.Infrastructure/Migrations/
-          else
-            echo "⚠ No migrations directory found yet"
-            echo "This is normal before the first migration is created."
-          fi
-
 
   # ============================================================
-  # APLICA AS MIGRATIONS NO BANCO
-  # Executado somente após PUSH na branch main
+  # APLICA MIGRATIONS
+  # SOMENTE APÓS PUSH NA MAIN
   # ============================================================
   apply-migrations:
 
@@ -123,73 +135,66 @@ jobs:
 
     steps:
 
-      # --------------------------------------------------------
-      # Checkout do código
-      # --------------------------------------------------------
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # --------------------------------------------------------
-      # Instala .NET 10
-      # --------------------------------------------------------
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: "10.0.x"
 
-      # --------------------------------------------------------
-      # Exibe versão do .NET
-      # --------------------------------------------------------
-      - name: Display .NET version
-        run: dotnet --version
+      # ========================================================
+      # LOCALIZA A SOLUÇÃO
+      # ========================================================
+      - name: Find solution
+        id: solution
+        shell: bash
+        run: |
+          SOLUTION=$(find . -maxdepth 4 -name "*.sln" | head -n 1)
 
-      # --------------------------------------------------------
-      # Restore dos pacotes
-      # --------------------------------------------------------
+          echo "Solution found: $SOLUTION"
+
+          if [ -z "$SOLUTION" ]; then
+            echo "ERROR: No solution file found."
+            exit 1
+          fi
+
+          echo "path=$SOLUTION" >> $GITHUB_OUTPUT
+
+      # ========================================================
+      # RESTORE
+      # ========================================================
       - name: Restore dependencies
-        run: dotnet restore
+        run: |
+          dotnet restore "${{ steps.solution.outputs.path }}"
 
-      # --------------------------------------------------------
-      # Build da solução
-      # --------------------------------------------------------
+      # ========================================================
+      # BUILD
+      # ========================================================
       - name: Build solution
-        run: dotnet build --configuration Release --no-restore
+        run: |
+          dotnet build "${{ steps.solution.outputs.path }}" \
+            --configuration Release \
+            --no-restore
 
-      # --------------------------------------------------------
-      # Instala EF Core Tools
-      # --------------------------------------------------------
+      # ========================================================
+      # EF CORE
+      # ========================================================
       - name: Install EF Core Tools
         run: |
           dotnet tool install --global dotnet-ef
 
-      # --------------------------------------------------------
-      # Adiciona EF Tools ao PATH
-      # --------------------------------------------------------
       - name: Add EF Tools to PATH
         run: |
           echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
 
-      # --------------------------------------------------------
-      # Confirma instalação
-      # --------------------------------------------------------
       - name: Check EF Core version
         run: |
           dotnet ef --version
 
-      # --------------------------------------------------------
-      # Lista migrations antes da atualização
-      # --------------------------------------------------------
-      - name: List migrations
-        run: |
-          dotnet ef migrations list \
-            --project TireControl.Infrastructure \
-            --startup-project TireControl.Api \
-            --configuration Release \
-            --no-build
-
-      # --------------------------------------------------------
-      # EXECUTA AS MIGRATIONS
-      # --------------------------------------------------------
+      # ========================================================
+      # APLICA MIGRATIONS
+      # ========================================================
       - name: Apply database migrations
         run: |
           dotnet ef database update \
