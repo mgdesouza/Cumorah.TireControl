@@ -126,4 +126,3 @@ steps:
         --startup-project "./Cumorah.TireControl/TireControl.Api/TireControl.Api.csproj" \
         --configuration Release \
         --no-build
-```
