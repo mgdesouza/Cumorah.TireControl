@@ -10,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddInfrastructure(builder.Configuration);
 // Add OpenAPI (Swagger)
 builder.Services.AddOpenApi();
+builder.Services.AddSwaggerGen();
 // CORS
 builder.Services.AddCors(options =>
 {
@@ -38,6 +39,8 @@ if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
     app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 else
 {
