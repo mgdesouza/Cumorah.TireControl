@@ -59,3 +59,25 @@ O projeto utiliza uma arquitetura baseada nos princípios de **Clean Architectur
 │                 SQL Server                  │
 │                                             │
 └─────────────────────────────────────────────┘
+```
+
+---
+
+## 🔐 Autenticação e autorização da API
+
+A API usa tokens JWT *Bearer*. Todos os endpoints são protegidos por padrão; apenas
+`POST /api/auth/login` permite acesso anônimo. O token inclui as *roles* e as permissões
+associadas ao usuário ativo, para que endpoints possam exigir uma permissão específica,
+por exemplo: `[Authorize(Policy = AuthorizationPermissions.PneuCreate)]`.
+
+Antes de iniciar a API, configure a chave de assinatura JWT fora do repositório. Ela deve
+ter ao menos 32 caracteres:
+
+```bash
+export Jwt__Key='uma-chave-secreta-com-pelo-menos-32-caracteres'
+export ConnectionStrings__Default='Server=...;Database=...;...'
+```
+
+As senhas dos usuários devem ser gravadas usando `IPasswordHasher<Usuario>`. O login
+aceita e-mail e senha e responde com o `accessToken`, cujo uso é feito por meio do cabeçalho
+`Authorization: Bearer <accessToken>`.

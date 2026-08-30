@@ -18,4 +18,12 @@ public static class AuthorizationPermissions
     public const string VeiculoDelete = "Veiculo.Delete";
 
     public const string RelatorioView = "Relatorio.View";
+
+    public static readonly IReadOnlyCollection<string> All =
+    [
+        UsuarioView, UsuarioCreate, UsuarioUpdate, UsuarioDelete,
+        PneuView, PneuCreate, PneuUpdate, PneuDelete,
+        VeiculoView, VeiculoCreate, VeiculoUpdate, VeiculoDelete,
+        RelatorioView
+    ];
 }
