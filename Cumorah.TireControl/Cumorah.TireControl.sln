@@ -16,6 +16,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TireControl.Mobile", "TireC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TireControl.Api", "TireControl.Api\TireControl.Api.csproj", "{167A8EA6-56F4-4BF1-B548-0F4073B2D57A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{85CF21E8-E687-4CCD-9AE1-A22FE4B0A650}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{BC00F280-AA95-433C-B662-8C3484D41517}"
+	ProjectSection(SolutionItems) = preProject
+		cd.yml = cd.yml
+		ci.yml = ci.yml
+		.github\workflows\ef-migration.yml = .github\workflows\ef-migration.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +62,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BC00F280-AA95-433C-B662-8C3484D41517} = {85CF21E8-E687-4CCD-9AE1-A22FE4B0A650}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {26788A4A-9642-4BD1-A640-E0130B89F2B9}
