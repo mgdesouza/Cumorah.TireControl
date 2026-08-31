@@ -1,8 +1,46 @@
+@page
+@model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Gestão inteligente de pneus";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Bem-vindo ao TireControl</h1>
-    <p>Sistema de Gestão de Pneus.</p>
-</div>
+<section class="hero">
+    <div class="hero__content">
+        <p class="eyebrow"><span class="eyebrow__dot"></span> Controle operacional em tempo real</p>
+        <h1>Todo pneu tem uma história.<br /><span>Tenha o controle dela.</span></h1>
+        <p class="hero__description">
+            Simplifique a gestão da sua frota com dados confiáveis, inspeções no momento certo e decisões que reduzem custos.
+        </p>
+        <div class="hero__actions">
+            <a class="button button--primary" asp-page="/Login">Acessar plataforma <span aria-hidden="true">→</span></a>
+            <a class="button button--ghost" href="#recursos">Conhecer recursos</a>
+        </div>
+        <div class="hero__proof">
+            <div class="avatars" aria-hidden="true"><span>LM</span><span>RS</span><span>AC</span></div>
+            <p><strong>Feito para operações que não param.</strong><br />Do pátio ao campo, sua frota conectada.</p>
+        </div>
+    </div>
+
+    <div class="hero__visual" aria-label="Painel de indicadores da frota">
+        <div class="dashboard-card">
+            <div class="dashboard-card__header"><span>Visão da frota</span><span class="status"><i></i> Atualizado agora</span></div>
+            <div class="dashboard-card__metrics">
+                <div><small>Pneus em operação</small><strong>1.248</strong><em>↗ 8,4%</em></div>
+                <div><small>Vida útil média</small><strong>74<span>%</span></strong><em>↗ 3,1%</em></div>
+            </div>
+            <div class="chart" aria-hidden="true"><span style="height:35%"></span><span style="height:53%"></span><span style="height:44%"></span><span style="height:72%"></span><span style="height:61%"></span><span style="height:86%"></span><span style="height:76%"></span><span style="height:100%"></span></div>
+            <div class="dashboard-card__footer"><span>Janeiro</span><span>Fevereiro</span><span>Março</span><span>Abril</span></div>
+        </div>
+        <div class="alert-card"><span class="alert-card__icon">!</span><div><strong>3 inspeções pendentes</strong><small>Programe a próxima verificação</small></div><span aria-hidden="true">→</span></div>
+        <div class="tire-orbit" aria-hidden="true"><div class="tire-orbit__inner"></div></div>
+    </div>
+</section>
+
+<section class="features" id="recursos">
+    <div><p class="eyebrow">Uma operação mais eficiente</p><h2>Controle que acompanha<br />o ritmo da sua frota.</h2></div>
+    <div class="feature-grid">
+        <article><span class="feature-icon">⌁</span><h3>Histórico completo</h3><p>Acompanhe cada etapa do ciclo de vida do pneu, da entrada ao descarte.</p></article>
+        <article><span class="feature-icon">◉</span><h3>Inspeções em dia</h3><p>Antecipe manutenções com alertas e indicadores sempre atualizados.</p></article>
+        <article><span class="feature-icon">↗</span><h3>Decisões com dados</h3><p>Transforme informações da operação em resultados para o negócio.</p></article>
+    </div>
+</section>
