@@ -2,6 +2,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddHttpClient("TireControl.Api", client =>
+{
+    var apiBaseUrl = builder.Configuration["Api:BaseUrl"] ?? "http://localhost:5208/";
+    client.BaseAddress = new Uri(apiBaseUrl, UriKind.Absolute);
+});
 
 var app = builder.Build();
 
