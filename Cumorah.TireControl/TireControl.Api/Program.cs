@@ -11,6 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddInfrastructure(builder.Configuration);
 // Add OpenAPI (Swagger)
 builder.Services.AddOpenApi();
+builder.Services.AddSwaggerGen();
 // CORS
 builder.Services.AddCors(options =>
 {
@@ -40,6 +41,8 @@ app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
