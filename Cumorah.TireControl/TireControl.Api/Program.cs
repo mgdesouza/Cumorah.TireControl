@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TireControl.Api.DependencyInjection;
+using TireControl.Api.Middleware;
 using TireControl.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,22 +36,20 @@ catch (Exception ex)
 }
 
 // Configure the HTTP request pipeline.
+app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
+
 if (app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
     app.MapOpenApi();
     app.UseSwagger();
     app.UseSwaggerUI();
-}
-else
-{
-    app.UseExceptionHandler("/error");
 }
 
 app.UseHttpsRedirection();
 
 app.UseCors("AllowAll");
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapHealthChecks("/health");
