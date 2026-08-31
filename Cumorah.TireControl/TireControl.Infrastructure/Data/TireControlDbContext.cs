@@ -25,8 +25,10 @@ public class TireControlDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.HasDefaultSchema("dbo");
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(TireControlDbContext).Assembly);
         AuthorizationSeed.Configure(modelBuilder);
         base.OnModelCreating(modelBuilder);
+
     }
 }
