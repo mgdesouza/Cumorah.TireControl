@@ -1,52 +1,15 @@
 @page
 @model LoginModel
-@{
-    ViewData["Title"] = "Entrar";
-}
-
-<div class="login-page">
-    <section class="login-intro">
-        <a class="brand brand--light" asp-page="/Index" aria-label="TireControl, página inicial"><span class="brand__mark">TC</span><span>Tire<span>Control</span></span></a>
-        <div class="login-intro__copy">
-            <p class="eyebrow eyebrow--light">Gestão que move sua operação</p>
-            <h1>O caminho para uma frota mais eficiente começa aqui.</h1>
-            <p>Tenha visibilidade sobre cada pneu, em cada etapa da operação.</p>
-        </div>
-        <div class="login-intro__quote"><span>“</span><p>Dados precisos para decisões mais seguras e econômicas.</p></div>
-    </section>
-
-    <section class="login-panel">
-        <div class="login-card">
-            <a class="login-card__back" asp-page="/Index">← Voltar para o início</a>
-            <header><p class="eyebrow">Acesso à plataforma</p><h1>Boas-vindas de volta</h1><p>Informe seus dados para continuar.</p></header>
-            <form method="post" novalidate>
-                <div asp-validation-summary="ModelOnly" class="validation-summary" role="alert"></div>
-                <div class="form-field">
-                    <label asp-for="Input.Email">E-mail</label>
-                    <input asp-for="Input.Email" autocomplete="email" placeholder="nome@empresa.com" />
-                    <span asp-validation-for="Input.Email"></span>
-                </div>
-                <div class="form-field">
-                    <div class="form-field__label-row"><label asp-for="Input.Password">Senha</label><a href="#">Esqueci minha senha</a></div>
-                    <div class="password-input"><input asp-for="Input.Password" autocomplete="current-password" placeholder="Digite sua senha" /><button type="button" class="password-toggle" aria-label="Exibir senha" aria-pressed="false">◉</button></div>
-                    <span asp-validation-for="Input.Password"></span>
-                </div>
-                <label class="remember"><input asp-for="Input.RememberMe" /><span asp-for="Input.RememberMe">Manter-me conectado</span></label>
-                <button class="button button--primary button--full" type="submit">Entrar na plataforma <span aria-hidden="true">→</span></button>
-            </form>
-            <p class="login-card__help">Precisa de ajuda? <a href="mailto:suporte@tirecontrol.com">Fale com o suporte</a></p>
-        </div>
-    </section>
-</div>
-
-@section Scripts {
-    <script>
-        document.querySelector('.password-toggle')?.addEventListener('click', function () {
-            const input = this.previousElementSibling;
-            const isPassword = input.type === 'password';
-            input.type = isPassword ? 'text' : 'password';
-            this.setAttribute('aria-pressed', isPassword.toString());
-            this.setAttribute('aria-label', isPassword ? 'Ocultar senha' : 'Exibir senha');
-        });
-    </script>
-}
+@{ ViewData["Title"] = "Entrar"; }
+<section class="login-card">
+    <a asp-page="/Index" class="login-brand" aria-label="TireControl, página inicial"><span class="brand-symbol"><i class="bi bi-circle-fill"></i></span><span>Tire<span class="text-success">Control</span></span></a>
+    <header><h1>Boas-vindas de volta</h1><p>Acesse sua plataforma para gerir a frota.</p></header>
+    <form method="post" novalidate>
+        <div asp-validation-summary="ModelOnly" class="text-danger small mb-3" role="alert"></div>
+        <div class="mb-3"><label asp-for="Input.Email" class="form-label">E-mail</label><input asp-for="Input.Email" class="form-control" autocomplete="email" placeholder="nome@empresa.com" /><span asp-validation-for="Input.Email" class="text-danger small"></span></div>
+        <div class="mb-3"><div class="d-flex justify-content-between"><label asp-for="Input.Password" class="form-label">Senha</label><a href="#" class="small text-success">Esqueci minha senha</a></div><input asp-for="Input.Password" class="form-control" autocomplete="current-password" placeholder="Digite sua senha" /><span asp-validation-for="Input.Password" class="text-danger small"></span></div>
+        <div class="form-check mb-4"><input asp-for="Input.RememberMe" class="form-check-input" /><label asp-for="Input.RememberMe" class="form-check-label text-secondary">Manter-me conectado</label></div>
+        <button class="btn btn-tirecontrol w-100" type="submit">Entrar na plataforma <i class="bi bi-arrow-right ms-2"></i></button>
+    </form>
+    <p class="login-help">Precisa de ajuda? <a href="mailto:suporte@tirecontrol.com">Fale com o suporte</a></p>
+</section>
