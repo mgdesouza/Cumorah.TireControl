@@ -1,46 +1,19 @@
 @page
 @model IndexModel
-@{
-    ViewData["Title"] = "Gestão inteligente de pneus";
-}
+@{ ViewData["Title"] = "Visão geral"; }
 
-<section class="hero">
-    <div class="hero__content">
-        <p class="eyebrow"><span class="eyebrow__dot"></span> Controle operacional em tempo real</p>
-        <h1>Todo pneu tem uma história.<br /><span>Tenha o controle dela.</span></h1>
-        <p class="hero__description">
-            Simplifique a gestão da sua frota com dados confiáveis, inspeções no momento certo e decisões que reduzem custos.
-        </p>
-        <div class="hero__actions">
-            <a class="button button--primary" asp-page="/Login">Acessar plataforma <span aria-hidden="true">→</span></a>
-            <a class="button button--ghost" href="#recursos">Conhecer recursos</a>
-        </div>
-        <div class="hero__proof">
-            <div class="avatars" aria-hidden="true"><span>LM</span><span>RS</span><span>AC</span></div>
-            <p><strong>Feito para operações que não param.</strong><br />Do pátio ao campo, sua frota conectada.</p>
-        </div>
-    </div>
+<div class="content-header py-4">
+    <div class="d-flex flex-wrap align-items-end justify-content-between gap-3"><div><p class="page-kicker">PAINEL DE CONTROLE</p><h1 class="page-title">Olá, Administração <span>👋</span></h1><p class="page-subtitle mb-0">Acompanhe a performance da sua operação hoje.</p></div><button class="btn btn-tirecontrol"><i class="bi bi-plus-lg me-2"></i>Nova inspeção</button></div>
+</div>
 
-    <div class="hero__visual" aria-label="Painel de indicadores da frota">
-        <div class="dashboard-card">
-            <div class="dashboard-card__header"><span>Visão da frota</span><span class="status"><i></i> Atualizado agora</span></div>
-            <div class="dashboard-card__metrics">
-                <div><small>Pneus em operação</small><strong>1.248</strong><em>↗ 8,4%</em></div>
-                <div><small>Vida útil média</small><strong>74<span>%</span></strong><em>↗ 3,1%</em></div>
-            </div>
-            <div class="chart" aria-hidden="true"><span style="height:35%"></span><span style="height:53%"></span><span style="height:44%"></span><span style="height:72%"></span><span style="height:61%"></span><span style="height:86%"></span><span style="height:76%"></span><span style="height:100%"></span></div>
-            <div class="dashboard-card__footer"><span>Janeiro</span><span>Fevereiro</span><span>Março</span><span>Abril</span></div>
-        </div>
-        <div class="alert-card"><span class="alert-card__icon">!</span><div><strong>3 inspeções pendentes</strong><small>Programe a próxima verificação</small></div><span aria-hidden="true">→</span></div>
-        <div class="tire-orbit" aria-hidden="true"><div class="tire-orbit__inner"></div></div>
-    </div>
+<section class="row g-4 mb-4" aria-label="Indicadores da frota">
+    <div class="col-sm-6 col-xl-3"><article class="metric-card"><div><p>Pneus em operação</p><h2>1.248</h2><span class="metric-up"><i class="bi bi-arrow-up"></i> 8,4% <small>vs. mês anterior</small></span></div><span class="metric-icon icon-lime"><i class="bi bi-disc"></i></span></article></div>
+    <div class="col-sm-6 col-xl-3"><article class="metric-card"><div><p>Vida útil média</p><h2>74<small>%</small></h2><span class="metric-up"><i class="bi bi-arrow-up"></i> 3,1% <small>vs. mês anterior</small></span></div><span class="metric-icon icon-blue"><i class="bi bi-activity"></i></span></article></div>
+    <div class="col-sm-6 col-xl-3"><article class="metric-card"><div><p>Inspeções pendentes</p><h2>03</h2><span class="metric-warning"><i class="bi bi-exclamation-circle"></i> Requer atenção</span></div><span class="metric-icon icon-orange"><i class="bi bi-clipboard2-check"></i></span></article></div>
+    <div class="col-sm-6 col-xl-3"><article class="metric-card"><div><p>Economia no mês</p><h2>R$ 18,4<small>k</small></h2><span class="metric-up"><i class="bi bi-arrow-up"></i> 12,5% <small>vs. mês anterior</small></span></div><span class="metric-icon icon-purple"><i class="bi bi-wallet2"></i></span></article></div>
 </section>
 
-<section class="features" id="recursos">
-    <div><p class="eyebrow">Uma operação mais eficiente</p><h2>Controle que acompanha<br />o ritmo da sua frota.</h2></div>
-    <div class="feature-grid">
-        <article><span class="feature-icon">⌁</span><h3>Histórico completo</h3><p>Acompanhe cada etapa do ciclo de vida do pneu, da entrada ao descarte.</p></article>
-        <article><span class="feature-icon">◉</span><h3>Inspeções em dia</h3><p>Antecipe manutenções com alertas e indicadores sempre atualizados.</p></article>
-        <article><span class="feature-icon">↗</span><h3>Decisões com dados</h3><p>Transforme informações da operação em resultados para o negócio.</p></article>
-    </div>
-</section>
+<section class="row g-4"><div class="col-xl-8"><article class="card dashboard-card h-100"><header class="card-header bg-white border-0 d-flex align-items-center justify-content-between"><div><h2>Desempenho da frota</h2><p>Vida útil média dos pneus nos últimos 6 meses</p></div><select class="form-select form-select-sm chart-select" aria-label="Período"><option>Últimos 6 meses</option></select></header><div class="card-body pt-0"><div class="performance-chart"><div class="chart-labels"><span>100%</span><span>75%</span><span>50%</span><span>25%</span><span>0%</span></div><div class="chart-area"><svg viewBox="0 0 680 220" preserveAspectRatio="none" role="img" aria-label="Gráfico de evolução da vida útil média"><defs><linearGradient id="area" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#b7d84b" stop-opacity=".35"/><stop offset="100%" stop-color="#b7d84b" stop-opacity="0"/></linearGradient></defs><path class="chart-grid" d="M0 0H680M0 55H680M0 110H680M0 165H680M0 220H680"/><path d="M0 162 C42 155 64 144 104 147 S165 130 210 136 S271 112 315 118 S379 83 420 97 S484 78 525 81 S590 48 632 58 S663 42 680 35 L680 220 L0 220Z" fill="url(#area)"/><path class="chart-line" d="M0 162 C42 155 64 144 104 147 S165 130 210 136 S271 112 315 118 S379 83 420 97 S484 78 525 81 S590 48 632 58 S663 42 680 35"/><circle cx="525" cy="81" r="5" class="chart-point"/></svg><div class="chart-months"><span>Mar</span><span>Abr</span><span>Mai</span><span>Jun</span><span>Jul</span><span>Ago</span></div></div></div></div></article></div>
+<div class="col-xl-4"><article class="card dashboard-card h-100"><header class="card-header bg-white border-0"><h2>Alertas recentes</h2><p>Itens que precisam da sua atenção</p></header><div class="card-body pt-0"><div class="alert-item"><span class="alert-icon alert-danger"><i class="bi bi-exclamation-triangle"></i></span><div><strong>Inspeção vencida</strong><p>Veículo ABC-1234</p></div><a href="#" aria-label="Ver inspeção"><i class="bi bi-chevron-right"></i></a></div><div class="alert-item"><span class="alert-icon alert-warning"><i class="bi bi-disc"></i></span><div><strong>Baixa profundidade</strong><p>Pneu #TR-9082 · 2,1 mm</p></div><a href="#" aria-label="Ver pneu"><i class="bi bi-chevron-right"></i></a></div><div class="alert-item"><span class="alert-icon alert-info"><i class="bi bi-calendar-event"></i></span><div><strong>Rodízio programado</strong><p>Em 3 veículos esta semana</p></div><a href="#" aria-label="Ver programação"><i class="bi bi-chevron-right"></i></a></div><a class="view-all" href="#">Ver todos os alertas <i class="bi bi-arrow-right"></i></a></div></article></div></section>
+
+<section class="card dashboard-card mt-4"><header class="card-header bg-white border-0 d-flex justify-content-between align-items-center"><div><h2>Inspeções recentes</h2><p>Últimas verificações realizadas na frota</p></div><a href="#" class="view-all d-none d-sm-block">Ver relatório <i class="bi bi-arrow-right"></i></a></header><div class="table-responsive"><table class="table align-middle mb-0 inspections-table"><thead><tr><th>VEÍCULO</th><th>RESPONSÁVEL</th><th>DATA</th><th>STATUS</th><th></th></tr></thead><tbody><tr><td><strong>ABC-1234</strong><small>Volvo FH 540</small></td><td>Marcos Silva</td><td>Hoje, 09:42</td><td><span class="status-badge status-ok">Concluída</span></td><td><a href="#" aria-label="Abrir inspeção"><i class="bi bi-three-dots"></i></a></td></tr><tr><td><strong>DEF-5678</strong><small>Scania R 450</small></td><td>João Pereira</td><td>Hoje, 08:15</td><td><span class="status-badge status-ok">Concluída</span></td><td><a href="#" aria-label="Abrir inspeção"><i class="bi bi-three-dots"></i></a></td></tr><tr><td><strong>GHI-9012</strong><small>Mercedes Actros</small></td><td>—</td><td>Agendada para amanhã</td><td><span class="status-badge status-pending">Pendente</span></td><td><a href="#" aria-label="Abrir inspeção"><i class="bi bi-three-dots"></i></a></td></tr></tbody></table></div></section>
